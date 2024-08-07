@@ -1,0 +1,20 @@
+
+# from requirements from class
+pandas
+requests
+plotly 
+python-dotenv
+flask 
+guincorn
+pytest
+
+#requirements from our code
+# datetime
+statistics 
+finnhub-python
+smtplib
+email.mime.text
+os
+
+
+# notes ask about pip-install finnhub-python 
