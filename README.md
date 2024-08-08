@@ -34,7 +34,7 @@ Run the script:
 stocks report:
 
 ```sh
-python -m app.stocks
+python -m app.data
 
 Run the web app (then view in the browser at http://localhost:5000/):
 
