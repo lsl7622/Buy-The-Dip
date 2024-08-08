@@ -10,11 +10,11 @@ pytest
 
 #requirements from our code
 # datetime
-statistics 
+# statistics module
 finnhub-python
-smtplib
-email.mime.text
-os
+# smtplib module
+# email.mime.text # module
+# os # module
 
 
 # notes ask about pip-install finnhub-python 
