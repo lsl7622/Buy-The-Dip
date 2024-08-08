@@ -5,11 +5,19 @@
 email = input("Please input your email: ")
 ticker = input("Please input a symbol (e.g. 'NFLX'): ").upper().strip()
 
+import pandas as pd
+import os
+from dotenv import load_dotenv
+from datetime import datetime, timedelta
+load_dotenv() # look in .env file for env variables
+
+AV_API_KEY = os.getenv("ALPHAVANTAGE_API_KEY", default="demo")
+
 # Fetech stock data from alphavantage API
 
 def fetch_stocks_csv(symbol = ticker): 
     request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&apikey={AV_API_KEY}&outputsize=full&datatype=csv"
-    return read_csv(request_url)
+    return pd.read_csv(request_url) #added pd 
 
 df = fetch_stocks_csv()
 
@@ -26,8 +34,8 @@ df_52_weeks = df[df['timestamp'] >= _52_weeks.strftime('%Y-%m-%d')]
 
 # TEST CODE 
 #print(df_52_weeks.columns)
-#print(len(df_52_weeks))
-#df_52_weeks.head()
+print(len(df_52_weeks))
+df_52_weeks.head()
 
 # Building the parameters: 1) Correction
 # a) Define 52-week high, b) define 5-year high; Define "Correction Territory" value for a & b (i.e., a * 90%; b * 90%)

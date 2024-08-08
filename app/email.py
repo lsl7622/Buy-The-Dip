@@ -50,8 +50,17 @@ def send_stock_alerts(): #This is the magic send.function that will send emails 
         else:
             
             
-            
-
-            
 if __name__ == '__main__': #ensures that certain code is only executed when the script is run directly
     send_stock_alerts()
+    
+    
+if signal == 1:
+    # Prepare email content
+    body_functions = [
+        lambda: get_stock_info('AAPL'),   # Example functions
+        get_signal_analysis               # You'll likely have more
+    ]
+    subject = "Stock Signal Alert!"
+
+    # Send email (if signal == 1)
+    send_signal_email(signal, subscribers, subject, body_functions)
