@@ -5,7 +5,7 @@ requests
 plotly 
 python-dotenv
 flask 
-guincorn
+gunicorn
 pytest
 
 #requirements from our code
