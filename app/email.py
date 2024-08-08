@@ -22,8 +22,8 @@ def create_email_content(ticker, drop_percentage): #prepares the data content th
     return subject, body
 
 def send_email(to_email, subject, body): #send email function
-    from_email = os.getenv('EMAIL_ADDRESS')
-    from_password = os.getenv('EMAIL_PASSWORD')
+    from_email = os.getenv('chrislucasmason@gmail.com')
+    from_password = os.getenv('chrislucasmason12345')
 
     msg = MIMEText(body) #this is where we set the content
     msg['Subject'] = subject
