@@ -77,6 +77,6 @@ def ticker_meta_data(ticker):
   print('Beta:',round(meta_data5, 2))
   # Include Yahoo Finance URL
   print('See more on Yahoo Finance:',f"https://finance.yahoo.com/quote/{ticker}/") # ticker is the varibale used above
-
+  return current_price, meta_data1, meta_data2, meta_data3, meta_data4, meta_data5
 # Example usage:
 #ticker_meta_data(f'{ticker}')

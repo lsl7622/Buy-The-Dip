@@ -7,6 +7,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage
 from app.data import ticker, email, df_five_years
 from app.meta_data import five_yr_candle_stick_chart, ticker_meta_data
+ticker_meta_data(ticker)
 fig1 = five_yr_candle_stick_chart(df_five_years, ticker)
 
 from dotenv import load_dotenv
@@ -23,7 +24,10 @@ def send_email_with_chart(to_email, body, fig1): #send email function
 
     # Add text to the email body
 
-    body = f"Here's the candlestick chart for {ticker}:\n\n" # this is where the text in the body of the email appears
+    body = f"""Here's the candlestick chart for {ticker}:\n\n
+    Current Price: ${current_price}
+    
+    """ # this is where the text in the body of the email appears
     text_part = MIMEText(body, 'plain')
     msg.attach(text_part)
 
