@@ -9,7 +9,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import   
- MIMEImage
+MIMEImage
 import io
 import plotly.io as pio
 
