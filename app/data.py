@@ -128,3 +128,4 @@ else :
 #print("50-day Moving Average:", round(today_ma50,2))
 #print("200-day Moving Average:", round(today_ma200,2))
 
+
