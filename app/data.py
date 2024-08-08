@@ -5,6 +5,8 @@
 email = input("Please input your email: ")
 ticker = input("Please input a symbol (e.g. 'NFLX'): ").upper().strip()
 
+
+# ensure pandas is installed 
 import pandas as pd
 import os
 from dotenv import load_dotenv
