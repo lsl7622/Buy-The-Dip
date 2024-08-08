@@ -1,5 +1,6 @@
 import pandas as pd
 import plotly.graph_objects as go
+import os
 
 def five_yr_candle_stick_chart(df_five_years, ticker):
     """
@@ -55,7 +56,7 @@ def five_yr_candle_stick_chart(df_five_years, ticker):
 
 import finnhub
 
-F_API_KEY = userdata.get("FINNHUB_API_KEY")
+F_API_KEY = os.getenv("FINNHUB_API_KEY")
 # Setup client
 finnhub_client = finnhub.Client(api_key= F_API_KEY) #cqnqotpr01qo8864pu70cqnqotpr01qo8864pu7g (CF added to notebook secrets)
 

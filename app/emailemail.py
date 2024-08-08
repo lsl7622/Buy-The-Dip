@@ -19,4 +19,4 @@ def send_email(to_email, subject, body): #send email function
         server.send_message(msg)
 
 # Sending the email:
-send_email('christopher.frye94@gmail.com', 'Test Email', 'This is a test email.')
+send_email('christopher.frye94@gmail.com', 'Test Email', 'This is a test email.') # need to define the body?
