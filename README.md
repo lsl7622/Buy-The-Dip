@@ -23,6 +23,10 @@ Install packages:
 pip install -r requirements.txt
 ```
 
+```sh
+pip install -U kaleido # (for image chart)
+```
+
 Access API Key from ALPHAVANTAGE AND FinnHub API 
 Also create a ".env" file in the root directory of the repo, and paste some contents in like this
 
