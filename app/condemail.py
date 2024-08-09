@@ -29,17 +29,17 @@ def get_stock_price(ticker):
     return latest_close, previous_close
 
 # This is where we out our four final functions discussed to generate email contents
-def real_bad_day_email_content(ticker, drop_percentage): #prepares the data content that will be uniform across all emails.
-    subject = f'Alert: {ticker} dropped by more than {drop_percentage:.2f}% today' #need to feed this number
+def real_bad_day_email_content(ticker, drop_percentage, fifty_two_signal_var): #prepares the data content that will be uniform across all emails.
+    subject = f'Alert: {ticker} experienced a {fifty_two_signal_var:.2f}% correction from it 52-week high today!' #need to feed this number
     body = f'''The stock {ticker} has dropped by {drop_percentage:.2f}% in the last day.
 
     Stock Analysis for {ticker}
 
-    Current Price: ${current_price:.2f}  # Format with 2 decimal places
+    Current Price: ${current_price:.2f} 
     52-week high: ${meta_data1:.2f}
-    5-year high: ${meta_data1:.2f}  # Assuming this is the same as 52-week high
-    52-week correction territory: ${meta_data2 * 0.9:.2f}  # 10% below 52-week low
-    5-year correction territory: ${meta_data2 * 0.9:.2f}   # Assuming same as 52-week
+    5-year high: ${meta_data1:.2f}  
+    52-week correction territory: ${meta_data2 * 0.9:.2f}
+    5-year correction territory: ${meta_data2 * 0.9:.2f} 
     52 Week High: $ {meta_data1:.2f}
     52 Week Low & Date: $ {meta_data2:.2f} , {meta_data3}
     52 Week Percent change: {meta_data4:.2f} %
@@ -110,6 +110,8 @@ def send_stock_alerts(): #This is the magic send.function that will send emails 
         latest_close, previous_close = get_stock_price(ticker)
         if latest_close is None or previous_close is None:
             continue
+        
+        fifty_two_signal_var = ((meta_data1 - latest_close) / previous_close) * 100
         gain_percentage = ((latest_close - previous_close) / previous_close) * 100
         drop_percentage = ((previous_close - latest_close) / previous_close) * 100
         if signal == True: 
