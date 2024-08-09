@@ -114,6 +114,7 @@ def send_stock_alerts(): #This is the magic send.function that will send emails 
         fifty_two_signal_var = ((meta_data1 - latest_close) / previous_close) * 100
         gain_percentage = ((latest_close - previous_close) / previous_close) * 100
         drop_percentage = ((previous_close - latest_close) / previous_close) * 100
+        
         if signal == True: 
             subject, body = real_bad_day_email_content(ticker, drop_percentage) #Need to input signal choice here; real_bad_day should include "Your stock dropped by More that 10%, 20%, etc" as well as the exact amount in the body"
             send_email(email, subject, body)
