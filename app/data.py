@@ -24,7 +24,7 @@ def fetch_stocks_csv(symbol):
     return pd.read_csv(request_url) #added pd 
 
 
-# if __name__ == "__main__": ---> for web app, would need to tab everything below
+# if __name__ == "__main__": ---> for web app, would need to tab everything below (Send question)
 
     #email = input("Please input your email: ")
     #ticker = input("Please input a symbol (e.g. 'NFLX'): ").upper().strip()
