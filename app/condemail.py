@@ -29,7 +29,26 @@ def get_stock_price(ticker):
     return latest_close, previous_close
 
 # This is where we out our four final functions discussed to generate email contents
-def create_email_content(ticker, drop_percentage): #prepares the data content that will be uniform across all emails.
+def real_bad_day_email_content(ticker, drop_percentage): #prepares the data content that will be uniform across all emails.
+    subject = f'Alert: {ticker} dropped by {drop_percentage:.2f}% today' 
+    body = f'''The stock {ticker} has dropped by {drop_percentage:.2f}% in the last day.
+
+    Stock Analysis for {ticker}
+
+    Current Price: ${current_price:.2f}  # Format with 2 decimal places
+    52-week high: ${meta_data1:.2f}
+    5-year high: ${meta_data1:.2f}  # Assuming this is the same as 52-week high
+    52-week correction territory: ${meta_data2 * 0.9:.2f}  # 10% below 52-week low
+    5-year correction territory: ${meta_data2 * 0.9:.2f}   # Assuming same as 52-week
+    52 Week High: $ {meta_data1:.2f}
+    52 Week Low & Date: $ {meta_data2:.2f} , {meta_data3}
+    52 Week Percent change: {meta_data4:.2f} %
+    Beta: {meta_data5:.2f}
+    See more on Yahoo Finance: https://finance.yahoo.com/quote/{ticker}/
+    '''
+    return subject, body
+
+def bad_day_email_content(ticker, drop_percentage): #prepares the data content that will be uniform across all emails.
     subject = f'Alert: {ticker} dropped by {drop_percentage:.2f}% today'
     body = f'''The stock {ticker} has dropped by {drop_percentage:.2f}% in the last day.
 
@@ -75,13 +94,12 @@ def send_stock_alerts(): #This is the magic send.function that will send emails 
 
         drop_percentage = ((previous_close - latest_close) / previous_close) * 100
         if signal == True: 
-            subject, body = create_email_content(ticker, drop_percentage)
+            subject, body = real_bad_day_email_content(ticker, drop_percentage) #Need to input signal choice here; real_bad_day should include "Your stock dropped by More that 10%, 20%, etc" as well as the exact amount in the body"
             send_email(email, subject, body)
-        elif signal_ == True:
-            subject, body = create_email_content(ticker, drop_percentage)
+        elif signal == False: 
+            subject, body = bad_day_email_content(ticker, drop_percentage)
             send_email(email, subject, body)
-        else:
-            #All good email with stock analysis
+        else: #code for sending an email that tells you "Congrats, no losses to report today!" (bonus would be to program how much desired [ticker] gained # %) 
 
 if __name__ == '__main__': #ensures that certain code is only executed when the script is run directly
     send_stock_alerts()
