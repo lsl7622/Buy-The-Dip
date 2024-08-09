@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>Welcome Home</h1>
+
+    <p>This is a paragraph on the "home" page.</p>
+
+    <form action="/dashboard" method="POST">
+
+        <label>Email:</label>
+        <input type="text" name="email" placeholder="chrislucasmason@gmail.com"> <!-- how do we get it where once the user inputs their email and stock's -->
+        <br>
+        <label>Stock Symbol:</label>
+        <input type="text" name="symbol" placeholder="MSFT" value="MSFT">
+        <br>
+
+<!-- from here, we want to 1) show all the meta data and candlestick chart, and 2) invoke the email functionality "Thank you for signiing up!" -->
+
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+{% endblock %}

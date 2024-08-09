@@ -2,8 +2,7 @@
 
 # Potential input text from subcriber
 ## NEED to come to this to understand how to log subcribers inputs from the web app 
-email = input("Please input your email: ")
-ticker = input("Please input a symbol (e.g. 'NFLX'): ").upper().strip()
+
 
 
 # ensure pandas is installed 
@@ -13,15 +12,24 @@ from dotenv import load_dotenv
 from datetime import datetime, timedelta
 load_dotenv() # look in .env file for env variables
 
+email = input("Please input your email: ") # might need to remove these two lines for web app (but won't run emailchart command without...)
+ticker = input("Please input a symbol (e.g. 'NFLX'): ").upper().strip()
+
 AV_API_KEY = os.getenv("ALPHAVANTAGE_API_KEY", default="demo")
 
 # Fetech stock data from alphavantage API
 
-def fetch_stocks_csv(symbol = ticker): 
+def fetch_stocks_csv(symbol): 
     request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&apikey={AV_API_KEY}&outputsize=full&datatype=csv"
     return pd.read_csv(request_url) #added pd 
 
-df = fetch_stocks_csv()
+
+# if __name__ == "__main__": ---> for web app, would need to tab everything below
+
+    #email = input("Please input your email: ")
+    #ticker = input("Please input a symbol (e.g. 'NFLX'): ").upper().strip()
+    
+df = fetch_stocks_csv(ticker)
 
 # Calculate the date five years ago
 five_years = datetime.now() - timedelta(days=5*365)
