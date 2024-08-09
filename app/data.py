@@ -77,27 +77,27 @@ _40_drop_5_year = round(high_5_years * 0.6,2)
 # Comparing todays closing price vs 52 week high
 
 if df_52_weeks['adjusted_close'][0] < correction_52_week and df_52_weeks['adjusted_close'][1] > correction_52_week:
-    signal = 1
+    signal = True
 elif df_52_weeks['adjusted_close'][0] < _20_drop_52_week and df_52_weeks['adjusted_close'][1] > _20_drop_52_week:
-    signal = 1
+    signal = True
 elif df_52_weeks['adjusted_close'][0] < _30_drop_52_week and df_52_weeks['adjusted_close'][1] > _30_drop_52_week:
-    signal = 1
+    signal = True
 elif df_52_weeks['adjusted_close'][0] < _40_drop_52_week and df_52_weeks['adjusted_close'][1] > _40_drop_52_week:
-    signal = 1
+    signal = True
 else :
-    signal = 0 
+    signal = False 
     
 # 5 year comparison 
 if df_52_weeks['adjusted_close'][0] < correction_5_year and df_52_weeks['adjusted_close'][1] > correction_5_year:
-    signal_ = 1
+    signal_ = True
 elif df_52_weeks['adjusted_close'][0] < _20_drop_5_year and df_52_weeks['adjusted_close'][1] > _20_drop_5_year:
-    signal_ = 1
+    signal_ = True
 elif df_52_weeks['adjusted_close'][0] < _30_drop_5_year and df_52_weeks['adjusted_close'][1] > _30_drop_5_year:
-    signal_ = 1
+    signal_ = True
 elif df_52_weeks['adjusted_close'][0] < _40_drop_5_year and df_52_weeks['adjusted_close'][1] > _40_drop_5_year:
-    signal_ = 1
+    signal_ = True
 else :
-    signal_ = 0 
+    signal_ = False 
 
 # THIS SECTION IS TO CALCULATE AND COMPARE 50-DAY VS 200-DAY MOVING AVERAGES
 ### COMMENTED THIS SECTION OUT FOR NOW 8/7/24
