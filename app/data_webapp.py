@@ -21,23 +21,26 @@ if __name__ == "__main__": # for web app, would need to tab everything below
     email = input("Please input your email: ")
     ticker = input("Please input a symbol (e.g. 'NFLX'): ").upper().strip()
     
-    df = fetch_stocks_csv(ticker)
+    def get_five_year_data(symbol):
+    
+        df = fetch_stocks_csv(symbol)
 
-    # Calculate the date five years ago
-    five_years = datetime.now() - timedelta(days=5*365)
-    _52_weeks = datetime.now() - timedelta(days=365)
+        # Calculate the date five years ago
+        five_years = datetime.now() - timedelta(days=5*365)
+        _52_weeks = datetime.now() - timedelta(days=365)
 
-    # Convert the date columns to datetime objects
-    df['timestamp'] = pd.to_datetime(df['timestamp'])
+        # Convert the date columns to datetime objects
+        df['timestamp'] = pd.to_datetime(df['timestamp'])
 
-    # Filter the DataFrame
-    df_five_years = df[df['timestamp'] >= five_years.strftime('%Y-%m-%d')] # note these dataframes only reference the single stock the user inputted
-    df_52_weeks = df[df['timestamp'] >= _52_weeks.strftime('%Y-%m-%d')]
+        # Filter the DataFrame
+        df_five_years = df[df['timestamp'] >= five_years.strftime('%Y-%m-%d')] # note these dataframes only reference the single stock the user inputted
+        df_52_weeks = df[df['timestamp'] >= _52_weeks.strftime('%Y-%m-%d')]
 
-    # TEST CODE 
-    #print(df_52_weeks.columns)
-    #print(len(df_52_weeks))
-    df_52_weeks.head()
+        # TEST CODE 
+        #print(df_52_weeks.columns)
+        #print(len(df_52_weeks))
+        df_52_weeks.head()
+        return df_five_years
 
     # Building the parameters: 1) Correction
     # a) Define 52-week high, b) define 5-year high; Define "Correction Territory" value for a & b (i.e., a * 90%; b * 90%)

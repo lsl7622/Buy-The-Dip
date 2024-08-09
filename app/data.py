@@ -61,7 +61,7 @@ high_5_years = max(df_five_years['high'])
 # Setting variables for correction territory values
 
 correction_52_week = round(high_52_weeks * 0.9,2)
-print("52-week correction territory:", correction_52_week)
+#print("52-week correction territory:", correction_52_week)
 _20_drop_52_week = round(high_52_weeks * 0.8,2)
 _30_drop_52_week = round(high_52_weeks * 0.7,2)
 _40_drop_52_week = round(high_52_weeks * 0.6,2)

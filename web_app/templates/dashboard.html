@@ -1,9 +1,20 @@
 {% extends "layout.html" %} 
 
+<title>Dashboard</title>
+
 {% block content %}
 
     <h1>{{ symbol }}</h1> <!-- this is fetching variables passed from the route -->
 
-    <p>The price for the stock you selected = {{ current_price }}</p>
+    <p>Thanks for signing up to receive stock alerts for {{ symbol }}</p>
+
+    <p>Its current price is: {{ current_price }} and the stock has a beta of: {{ meta_data5 }}</p>
+
+    <p>Its 52-Week High is {{ meta_data1 }}</p>
+
+    <p>Its 52-Week Low was {{ meta_data2 }} on {{ meta_data3 }}</p>
+
+    <div>{{ chart_html|safe }}</div>
 
 {% endblock %}
+

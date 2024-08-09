@@ -1,23 +1,17 @@
-{% extends "layout.html" %}
+    <h1>Welcome to Buy the Dip</h1>
 
-{% block content %}
+    <p>Please enter the following information to sign-up for our alert notifications</p>
 
-    <h1>Welcome Home</h1>
-
-    <p>This is a paragraph on the "home" page.</p>
-
-    <form action="/dashboard" method="POST">
+    <form action="/dashboard" method="POST"> <!--does this need to also include "GET" for method if trying to save in google sheet API?-->
 
         <label>Email:</label>
-        <input type="text" name="email" placeholder="chrislucasmason@gmail.com"> <!-- how do we get it where once the user inputs their email and stock's -->
+        <input type="text" name="email" > <!-- how do we get it where once the user inputs their email and stock's -->
         <br>
         <label>Stock Symbol:</label>
-        <input type="text" name="symbol" placeholder="MSFT" value="MSFT">
+        <input type="text" name="symbol">
         <br>
 
 <!-- from here, we want to 1) show all the meta data and candlestick chart, and 2) invoke the email functionality "Thank you for signiing up!" -->
 
         <button class="btn btn-success">Submit</button>
     </form>
-
-{% endblock %}
