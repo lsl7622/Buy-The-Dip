@@ -87,9 +87,9 @@ def send_email_with_chart(to_email, body, fig1): #send email function
 send_email_with_chart(email, ticker, fig1) # need to define the body?
 
 # Sending the conditional email: 
-if signal == 1:
-    send_email_with_chart(email, ticker, fig1)
-elif signal_ == 1:
-    send_email_with_chart(email, ticker, fig1)
-else:
-    None 
+#if signal == 1:
+    #send_email_with_chart(email, ticker, fig1)
+#elif signal_ == 1:
+    #send_email_with_chart(email, ticker, fig1)
+#else:
+    #None 

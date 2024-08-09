@@ -36,7 +36,7 @@ if __name__ == "__main__": # for web app, would need to tab everything below
 
     # TEST CODE 
     #print(df_52_weeks.columns)
-    print(len(df_52_weeks))
+    #print(len(df_52_weeks))
     df_52_weeks.head()
 
     # Building the parameters: 1) Correction
@@ -45,10 +45,10 @@ if __name__ == "__main__": # for web app, would need to tab everything below
     import statistics
 
     high_52_weeks = max(df_52_weeks['high'])
-    print("52-week high:", high_52_weeks)
+    #print("52-week high:", high_52_weeks)
 
     high_5_years = max(df_five_years['high'])
-    print("5-year high:", high_5_years) # not accounting for stock splits... maybe use polygon
+    #print("5-year high:", high_5_years) # not accounting for stock splits... maybe use polygon
 
     # Setting variables for correction territory values
 
@@ -61,7 +61,7 @@ if __name__ == "__main__": # for web app, would need to tab everything below
     # DO WE NEED THIS CORRECTIONS ON THE FIVE YEARS OF DATA??
 
     correction_5_year = round(high_5_years * 0.9,2)
-    print("5-year correction territory:", correction_5_year)
+    #print("5-year correction territory:", correction_5_year)
     _20_drop_5_year = round(high_5_years * 0.8,2)
     _30_drop_5_year = round(high_5_years * 0.7,2)
     _40_drop_5_year = round(high_5_years * 0.6,2)
