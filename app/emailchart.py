@@ -85,3 +85,5 @@ def send_email_with_chart(to_email, body, fig1): #send email function
 
 # Sending the email:
 send_email_with_chart(email, ticker, fig1) # need to define the body?
+
+# 
