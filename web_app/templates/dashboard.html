@@ -1,0 +1,9 @@
+{% extends "layout.html" %} 
+
+{% block content %}
+
+    <h1>{{ symbol }}</h1> <!-- this is fetching variables passed from the route -->
+
+    <p>The price for the stock you selected = {{ current_price }}</p>
+
+{% endblock %}

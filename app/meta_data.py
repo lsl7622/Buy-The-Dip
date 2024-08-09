@@ -1,6 +1,8 @@
 import pandas as pd
 import plotly.graph_objects as go
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def five_yr_candle_stick_chart(df_five_years, ticker):
     """
@@ -80,3 +82,9 @@ def ticker_meta_data(ticker):
   return current_price, meta_data1, meta_data2, meta_data3, meta_data4, meta_data5
 # Example usage:
 #ticker_meta_data(f'{ticker}')
+
+if __name__ == "__main__":
+   symbol = 'NFLX'
+   current_price, meta_data1, meta_data2, meta_data3, meta_data4, meta_data5 = ticker_meta_data(symbol)
+   print(current_price)
+   print(meta_data1)
