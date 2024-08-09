@@ -77,6 +77,11 @@ def send_stock_alerts(): #This is the magic send.function that will send emails 
         if signal == True: 
             subject, body = create_email_content(ticker, drop_percentage)
             send_email(email, subject, body)
+        elif signal_ == True:
+            subject, body = create_email_content(ticker, drop_percentage)
+            send_email(email, subject, body)
+        else:
+            #All good email with stock analysis
 
 if __name__ == '__main__': #ensures that certain code is only executed when the script is run directly
     send_stock_alerts()
