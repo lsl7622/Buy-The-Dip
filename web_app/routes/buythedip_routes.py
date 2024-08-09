@@ -3,9 +3,16 @@
 
 from flask import Blueprint, request, render_template, redirect, flash
 import plotly.io as pio
+import pandas as pd
+from dotenv import load_dotenv
+load_dotenv()
+from datetime import datetime, timedelta
+import os
+
+AV_API_KEY = os.getenv("ALPHAVANTAGE_API_KEY", default="demo")
 
 # from app.data_webapp import fetch_stocks_csv
-from app.data import df_five_years
+#from app.data import df_five_years
 from app.meta_data import ticker_meta_data
 from app.meta_data import five_yr_candle_stick_chart
 
@@ -27,14 +34,28 @@ def dashboard():
     email = request_data.get("email")
     current_price, meta_data1, meta_data2, meta_data3, meta_data4, meta_data5 = ticker_meta_data(symbol)
 
+    # Get five years of data
+
+    def fetch_stocks_csv(symbol): 
+        request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&apikey={AV_API_KEY}&outputsize=full&datatype=csv"
+        return pd.read_csv(request_url)
+    
+    df = fetch_stocks_csv(symbol)
+
+    # Calculate the date five years ago
+    five_years = datetime.now() - timedelta(days=5*365)
+
+    # Convert the date columns to datetime objects
+    df['timestamp'] = pd.to_datetime(df['timestamp'])
+
+    # Filter the DataFrame
+    df_five_years = df[df['timestamp'] >= five_years.strftime('%Y-%m-%d')]
+
     # Formatting Meta Data
     formatted_current_price=f"{current_price:.2f}"
     formatted_meta_data1=f"${meta_data1:.2f}"
     formatted_meta_data2=f"${meta_data2:.2f}"
     formatted_meta_data5=f"{meta_data5: .2f}"
-
-    # Get 5-year data
-    # df_five_years = get_five_year_data(symbol)
 
     # Get candlestick chart Figure
     fig = five_yr_candle_stick_chart(df_five_years, symbol)
