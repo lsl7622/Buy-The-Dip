@@ -14,7 +14,7 @@ AV_API_KEY = os.getenv("ALPHAVANTAGE_API_KEY", default="demo")
 # from app.data_webapp import fetch_stocks_csv
 #from app.data import df_five_years
 from app.meta_data import ticker_meta_data
-from app.meta_data import five_yr_candle_stick_chart
+from app.candlestick_MA_chart import five_yr_candle_stick_chart
 
 # def get_five_year_data(symbol):
 
