@@ -5,11 +5,11 @@ import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage
-from app.data import ticker, email, df_five_years
-from app.meta_data import five_yr_candle_stick_chart, ticker_meta_data
+import plotly.io as pio
+
+from app.candlestick_MA_chart import five_yr_candle_stick_chart
+from app.meta_data import ticker_meta_data
 import finnhub 
-ticker_meta_data(ticker)
-fig1 = five_yr_candle_stick_chart(df_five_years, ticker)
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,7 +17,6 @@ load_dotenv()
 F_API_KEY = os.getenv("FINNHUB_API_KEY")
 # Setup client
 finnhub_client = finnhub.Client(api_key= F_API_KEY) #cqnqotpr01qo8864pu70cqnqotpr01qo8864pu7g (CF added to notebook secrets)
-
 
 def ticker_meta_data(ticker):
   finance_data = []
@@ -37,7 +36,7 @@ def ticker_meta_data(ticker):
 #ticker_meta_data(f'{ticker}')
 
 
-def send_email_with_chart(to_email, body, fig1): #send email function
+def send_email_with_chart(to_email, ticker, df_five_years): #send email function
     from_email = os.getenv('YOUR_EMAIL_ADDRESS')
     from_password = os.getenv('YOUR_EMAIL_PASSWORD')
 
@@ -46,17 +45,20 @@ def send_email_with_chart(to_email, body, fig1): #send email function
     msg['From'] = from_email
     msg['To'] = to_email
 
-    # Add text to the email body
+    # Generate the chart
+    fig1 = five_yr_candle_stick_chart(df_five_years, ticker)
+
+    # Get meta data
     current_price, meta_data1, meta_data2, meta_data3, meta_data4, meta_data5 = ticker_meta_data(ticker)
 
     body = f"""
-    Stock Analysis for {ticker}
+    Thank you for signing up to receive alerts for {ticker}
 
-    Current Price: ${current_price:.2f}  # Format with 2 decimal places
+    Current Price: ${current_price:.2f}
     52-week high: ${meta_data1:.2f}
-    5-year high: ${meta_data1:.2f}  # Assuming this is the same as 52-week high
-    52-week correction territory: ${meta_data2 * 0.9:.2f}  # 10% below 52-week low
-    5-year correction territory: ${meta_data2 * 0.9:.2f}   # Assuming same as 52-week
+    5-year high: ${meta_data1:.2f}
+    52-week correction territory: ${meta_data2 * 0.9:.2f}
+    5-year correction territory: ${meta_data2 * 0.9:.2f}
     52 Week High: $ {meta_data1:.2f}
     52 Week Low & Date: $ {meta_data2:.2f} , {meta_data3}
     52 Week Percent change: {meta_data4:.2f} %
@@ -84,7 +86,7 @@ def send_email_with_chart(to_email, body, fig1): #send email function
     print(f"Email with chart sent to {to_email}")
 
 # Sending the intial email:
-send_email_with_chart(email, ticker, fig1) # need to define the body?
+# send_email_with_chart(email, ticker, fig1) # need to define the body?
 
 # Sending the conditional email: 
 #if signal == 1:

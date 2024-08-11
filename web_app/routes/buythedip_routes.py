@@ -1,7 +1,7 @@
 
 # this is the "web_app/routes/buythedip.py" file ...
 
-from flask import Blueprint, request, render_template, redirect, flash
+from flask import Flask, Blueprint, request, render_template, redirect, flash
 import plotly.io as pio
 import pandas as pd
 from dotenv import load_dotenv
@@ -15,9 +15,9 @@ AV_API_KEY = os.getenv("ALPHAVANTAGE_API_KEY", default="demo")
 #from app.data import df_five_years
 from app.meta_data import ticker_meta_data
 from app.candlestick_MA_chart import five_yr_candle_stick_chart
+from app.emailchart import send_email_with_chart
 
-# def get_five_year_data(symbol):
-
+app = Flask(__name__)
 
 buythedip_routes = Blueprint("buythedip_routes", __name__)
 
@@ -63,6 +63,9 @@ def dashboard():
     # Convert figure to HTML
 
     chart_html = pio.to_html(fig, full_html=False)
+
+    # Send thank you email with chart
+    send_email_with_chart(email, symbol, df_five_years)
 
     return render_template("dashboard.html", 
                            symbol=symbol,
