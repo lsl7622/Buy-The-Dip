@@ -1,4 +1,4 @@
-# NOW WANT TO ADD CONDITIONS
+# This is our example and long term conditional code for sending emails with meta data. 
 
 # THIS FIRST CODE IS VERY BASIC EMAIL SENDING
 

@@ -1,4 +1,4 @@
-# THIS IS AN ATTEMPT TO ADD rolling 50-day and 200-day moving averages to a candlestick cahrt
+# THIS code adds rolling 50-day and 200-day moving averages to a candlestick chart
 
 import pandas as pd
 import plotly.graph_objects as go

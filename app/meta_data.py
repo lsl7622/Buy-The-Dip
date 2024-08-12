@@ -1,3 +1,5 @@
+# This code calclates the metadata for a given stock using the FinnHubb API while also creating a candlestick chart. 
+
 import pandas as pd
 import plotly.graph_objects as go
 import os
@@ -61,6 +63,7 @@ import finnhub
 F_API_KEY = os.getenv("FINNHUB_API_KEY")
 # Setup client
 finnhub_client = finnhub.Client(api_key= F_API_KEY) #cqnqotpr01qo8864pu70cqnqotpr01qo8864pu7g (CF added to notebook secrets)
+
 
 def ticker_meta_data(ticker):
   finance_data = []

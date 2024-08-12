@@ -1,3 +1,5 @@
+# This is example code that allows us to chart stock data and send emails
+
 # need to pip install -U kaleido (for image chart)
 
 import smtplib

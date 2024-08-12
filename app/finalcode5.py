@@ -1,3 +1,5 @@
+# This is our final version of code that runs conditional statements from a user subscribe list that is converted into a CSV and email are sent to the subcribers! 
+
 import pandas as pd
 import smtplib
 import os
@@ -18,8 +20,7 @@ F_API_KEY = os.getenv("FINNHUB_API_KEY")
 finnhub_client = finnhub.Client(api_key=F_API_KEY)
 AV_API_KEY = os.getenv("ALPHAVANTAGE_API_KEY", default="demo")
 
-# ... (Your `ticker_meta_data`, `send_email_with_chart_True`, and `send_email_with_chart_False` function definitions remain the same)
-
+# meta_data fucntion
 def ticker_meta_data(ticker):
     finance_data = []
     current_price = finnhub_client.quote(ticker)
@@ -37,6 +38,8 @@ def ticker_meta_data(ticker):
     print('See more on Yahoo Finance:', f"https://finance.yahoo.com/quote/{ticker}/")
     return current_price, meta_data1, meta_data2, meta_data3, meta_data4, meta_data5
 
+
+# send email functions including True and False emails
 def send_email_with_chart_True(to_email, ticker, df_five_years):
     from_email = os.getenv('YOUR_EMAIL_ADDRESS')
     from_password = os.getenv('YOUR_EMAIL_PASSWORD')
@@ -54,6 +57,8 @@ def send_email_with_chart_True(to_email, ticker, df_five_years):
 
     body = f"""
     Thank you for signing up to receive alerts for {ticker}
+    
+    Alert! This stock has entered correction territory! 
 
     Current Stock Price: ${current_price:.2f}
     52-week high: ${meta_data1:.2f}
@@ -103,12 +108,19 @@ def send_email_with_chart_False(to_email, ticker, df_five_years):
     current_price, meta_data1, meta_data2, meta_data3, meta_data4, meta_data5 = ticker_meta_data(ticker)
 
     body = f"""
-    Thank you for signing up to receive alerts for {ticker}
+    Thank you for signing up to receive alerts for {ticker}.
+    
+    There is no sign of a correction for this stock.
     
     Current Stock Price: ${current_price:.2f}
-
-    There is no sign of a correction from the stocks 52 week high today. 
-    
+    52-week high: ${meta_data1:.2f}
+    5-year high: ${meta_data1:.2f}
+    52-week correction territory: ${meta_data2 * 0.9:.2f}
+    5-year correction territory: ${meta_data2 * 0.9:.2f}
+    52 Week High: ${meta_data1:.2f}
+    52 Week Low & Date: ${meta_data2:.2f} , {meta_data3}
+    52 Week Percent change: {meta_data4:.2f} %
+    Beta: {meta_data5 if isinstance(meta_data5, (int, float)) else meta_data5}
     See more on Yahoo Finance: https://finance.yahoo.com/quote/{ticker}/
     """
     
@@ -133,7 +145,7 @@ def send_email_with_chart_False(to_email, ticker, df_five_years):
 
 
 
-# Define fetch_stocks_csv once (outside the loop)
+# Define fetch_stocks_csv once 
 def fetch_stocks_csv(symbol):
     request_url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&apikey={AV_API_KEY}&outputsize=full&datatype=csv"
     return pd.read_csv(request_url)
@@ -142,13 +154,13 @@ def fetch_stocks_csv(symbol):
 file_path = 'Local_Python_Project_Sheet - Sheet1.csv'
 df = pd.read_csv(file_path)
 
-# Print column names to verify
+# Verify columns
 print(df.columns)
 
-# Read the CSV file and send emails
+# Read the CSV file and send email
 for index, row in df.iterrows():
-    ticker = row['Ticker']  # Adjust if the column name is different
-    email = row['Email']    # Adjust if the column name is different
+    ticker = row['Ticker']  
+    email = row['Email']    
 
     try:
         df_stock = fetch_stocks_csv(ticker)
@@ -164,10 +176,10 @@ for index, row in df.iterrows():
         df_five_years = df_stock[df_stock['timestamp'] >= five_years_ago]
         df_52_weeks = df_stock[df_stock['timestamp'] >= _52_weeks_ago]
 
-        # Calculate the signal (replace with your actual logic)
+        # Calculate the signal 
         high_52_weeks = df_52_weeks['high'].max()
         correction_52_week = high_52_weeks * 0.9
-        current_price = df_52_weeks['adjusted_close'][0]  # Assuming the first row is the latest data
+        current_price = df_52_weeks['adjusted_close'][0]  # first row is the latest data
         signal = current_price < correction_52_week
 
         if signal:

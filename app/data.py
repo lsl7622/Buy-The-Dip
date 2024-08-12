@@ -1,4 +1,4 @@
-
+# This is the first data extraction code while using Alpha Vantage API 
 
 # Potential input text from subcriber
 ## NEED to come to this to understand how to log subcribers inputs from the web app 
