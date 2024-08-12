@@ -5,7 +5,10 @@ from email.mime.text import MIMEText
 from dotenv import load_dotenv
 import os
 from app.meta_data import ticker_meta_data
-import finnhub 
+import finnhub
+from email.mime.image import MIMEImage
+import plotly.io as pio
+from app.candlestick_MA_chart import five_yr_candle_stick_chart
 
 load_dotenv()
 
@@ -39,7 +42,7 @@ smtp_port = 587
 email_address = os.getenv('YOUR_EMAIL_ADDRESS')
 email_password = os.getenv('YOUR_EMAIL_PASSWORD')
 
-def send_email(to_email, ticker):
+def send_email(to_email, ticker, df_five_years):
     from_email = os.getenv('YOUR_EMAIL_ADDRESS')
     from_password = os.getenv('YOUR_EMAIL_PASSWORD')
 
@@ -70,6 +73,18 @@ def send_email(to_email, ticker):
     msg['Subject'] = subject
     msg.attach(MIMEText(body, 'plain'))
 
+    # Generate the chart
+    fig1 = five_yr_candle_stick_chart(df_five_years, ticker)
+
+    # Save the Plotly chart as an image
+    fig1.write_image("chart.png")
+
+    # Attach the chart image to the email
+    with open("chart.png", 'rb') as f:
+        img_part = MIMEImage(f.read())
+        img_part.add_header('Content-Disposition', 'attachment', filename='chart.png')
+        msg.attach(img_part)
+
     # Send the email
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()
@@ -80,4 +95,4 @@ def send_email(to_email, ticker):
 
 # Read the CSV file and send emails
 for index, row in df.iterrows():
-    send_email(row['Email'], row['Ticker'])
+    send_email(row['Email'], row['Ticker'],df_five_years)
