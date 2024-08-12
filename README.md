@@ -32,14 +32,10 @@ Also create a ".env" file in the root directory of the repo, and paste some cont
 
 ## Usage
 
-Run the script:
-
-#  STARTS TO GET DIFFERENT 
-stocks report:
+Run the script for conditional alerts (depenedent on stock price and correction terriroty of 52 week high):
 
 ```sh
-python -m app.data
-python -m app.emailchart
+python -m app.finalcode5
 
 Run the web app (then view in the browser at http://localhost:5000/):
 
