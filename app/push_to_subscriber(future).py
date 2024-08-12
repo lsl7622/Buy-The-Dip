@@ -1,3 +1,5 @@
+# This is reference code for future integration of web app (Do NOT Grade)
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
